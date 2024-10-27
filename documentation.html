@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="de" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amica Dokumentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        amica: {
+                            light: '#4285f4',
+                            dark: '#3367d6',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img src="amica_logo-iconographyc1-1ratio.png" alt="Amica Logo" class="w-8 h-8 mr-2">
+                <span class="text-xl font-semibold">Amica Docs</span>
+            </a>
+            <div class="flex items-center">
+                <form action="#" method="get" class="mr-4">
+                    <input type="text" name="q" placeholder="Dokumentation durchsuchen..." class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white">
+                </form>
+                <button id="darkModeToggle" class="text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <iconify-icon icon="heroicons:moon" class="dark:hidden"></iconify-icon>
+                    <iconify-icon icon="heroicons:sun" class="hidden dark:inline"></iconify-icon>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hauptinhalt -->
+    <main class="flex-grow container mx-auto px-4 py-8 flex">
+        <!-- Seitenleiste -->
+        <aside class="w-64 pr-8">
+            <nav>
+                <ul class="space-y-1">
+                    <li class="folder">
+                        <button class="flex items-center w-full text-left py-2 px-4 bg-gray-100 dark:bg-gray-800 rounded-md">
+                            <iconify-icon icon="mdi:folder" class="mr-2"></iconify-icon>
+                            <span class="font-semibold">Erste Schritte</span>
+                            <iconify-icon icon="mdi:chevron-down" class="ml-auto"></iconify-icon>
+                        </button>
+                        <ul class="pl-6 mt-2 space-y-1 hidden">
+                            <li><a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md" data-content="ueber-amica">Über Amica und Git</a></li>
+                            <li><a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md" data-content="konto-erstellen">Konto erstellen</a></li>
+                            <li><a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md" data-content="hallo-welt">Hallo Welt</a></li>
+                        </ul>
+                    </li>
+                    <li class="folder">
+                        <button class="flex items-center w-full text-left py-2 px-4 bg-gray-100 dark:bg-gray-800 rounded-md">
+                            <iconify-icon icon="mdi:folder" class="mr-2"></iconify-icon>
+                            <span class="font-semibold">Amica nutzen</span>
+                            <iconify-icon icon="mdi:chevron-down" class="ml-auto"></iconify-icon>
+                        </button>
+                        <ul class="pl-6 mt-2 space-y-1 hidden">
+                            <li><a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md" data-content="suchfunktionen">Suchfunktionen</a></li>
+                            <li><a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md" data-content="erweiterte-suche">Erweiterte Suche</a></li>
+                            <li><a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md" data-content="datenschutz">Datenschutz</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md" data-content="api">API-Dokumentation</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Dokumentationsinhalt -->
+        <div class="flex-grow bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md">
+            <div class="mb-4">
+                <span class="text-sm text-gray-500 dark:text-gray-400">Pfad: </span>
+                <span id="currentPath" class="text-sm font-medium">Erste Schritte / Über Amica und Git</span>
+            </div>
+            
+            <div id="content">
+                <!-- Der Inhalt wird dynamisch hier eingefügt -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer-Bereich -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-[#f2f2f2] dark:border-gray-700 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-start">
+                <img src="logo_gray.png" alt="Amica Logo" class="w-24 h-auto mr-24 mb-6 dark:hidden">
+                <img src="logo_white.png" alt="Amica Logo" class="w-24 h-auto mr-24 mb-6 hidden dark:block">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 flex-grow">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Über Amica</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Über uns</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Produkte</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Technologie</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Rechtliches</h3>
+                        <ul class="space-y-2">
+                            <li><a href="privacy.html" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Datenschutz</a></li>
+                            <li><a href="terms-of-use.html" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Nutzungsbedingungen</a></li>
+                            <li><a href="imprint.html" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Impressum</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Hilfe</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">FAQ</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Kontakt</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sicherheit</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Einstellungen</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sprache: Deutsch</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Region: Deutschland</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Erweiterte Suche</a></li>
+                            <li>
+                                <button id="darkModeToggle" class="flex items-center text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                                    <iconify-icon icon="heroicons:moon" class="mr-2 dark:hidden"></iconify-icon>
+                                    <iconify-icon icon="heroicons:sun" class="mr-2 hidden dark:inline"></iconify-icon>
+                                    <span id="darkModeText">Dunkle Ansicht</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-500 dark:text-gray-400">
+                <p>© 2024 Amica - Die intelligente Suchmaschine</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Ordner-Funktionalität
+        document.querySelectorAll('.folder > button').forEach(button => {
+            button.addEventListener('click', function() {
+                const folder = this.closest('.folder');
+                const subMenu = folder.querySelector('ul');
+                const icon = this.querySelector('iconify-icon:last-child');
+                
+                subMenu.classList.toggle('hidden');
+                icon.setAttribute('icon', subMenu.classList.contains('hidden') ? 'mdi:chevron-down' : 'mdi:chevron-up');
+            });
+        });
+
+        // Pfad-Aktualisierung und Inhalt laden
+        document.querySelectorAll('aside a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const path = this.closest('.folder') ? 
+                    this.closest('.folder').querySelector('button span').textContent + ' / ' + this.textContent :
+                    this.textContent;
+                document.getElementById('currentPath').textContent = path;
+                
+                // Inhalt laden
+                const contentId = this.getAttribute('data-content');
+                loadContent(contentId);
+            });
+        });
+
+        // Funktion zum Laden des Inhalts
+        function loadContent(contentId) {
+            const contentDiv = document.getElementById('content');
+            // Hier würden Sie normalerweise eine AJAX-Anfrage senden, um den Inhalt zu laden
+            // Für dieses Beispiel verwenden wir hartcodierte Inhalte
+            const contents = {
+                'ueber-amica': `
+                    <h1 class="text-3xl font-bold mb-6">Über Amica und Git</h1>
+                    <p class="mb-4">Amica ist eine intelligente Suchmaschine, die auf Git-Technologie basiert. Hier erfahren Sie, wie Sie Amica und Git für Ihre Arbeit nutzen können.</p>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Was ist Amica?</li>
+                        <li>Grundlagen von Git</li>
+                        <li>Wie Amica und Git zusammenarbeiten</li>
+                    </ul>
+                `,
+                'konto-erstellen': `
+                    <h1 class="text-3xl font-bold mb-6">Amica-Konto erstellen</h1>
+                    <p class="mb-4">Erstellen Sie Ihr persönliches Amica-Konto, um alle Funktionen nutzen zu können.</p>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>Besuchen Sie amica.com</li>
+                        <li>Klicken Sie auf "Registrieren"</li>
+                        <li>Füllen Sie das Anmeldeformular aus</li>
+                        <li>Bestätigen Sie Ihre E-Mail-Adresse</li>
+                    </ol>
+                `,
+                // Fügen Sie hier weitere Inhalte hinzu
+            };
+            contentDiv.innerHTML = contents[contentId] || 'Inhalt nicht gefunden';
+        }
+
+        // Dark Mode Toggle Funktionalität
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkModeText = document.getElementById('darkModeText');
+
+        function updateDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                darkModeText.textContent = 'Helle Ansicht';
+            } else {
+                darkModeText.textContent = 'Dunkle Ansicht';
+            }
+        }
+
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+                updateDarkMode();
+            });
+        }
+
+        // Überprüfen der gespeicherten Dark Mode-Einstellung
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Initiale Aktualisierung des Dark Mode-Textes
+        updateDarkMode();
+
+        // Laden des Standardinhalts
+        loadContent('ueber-amica');
+    </script>
+</body>
+</html>

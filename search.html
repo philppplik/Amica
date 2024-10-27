@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="de" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amica - Suchergebnisse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    // Hier können Sie benutzerdefinierte Farben hinzufügen
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .search-container {
+            position: relative;
+        }
+        
+        .search-box {
+            height: 45px;
+            padding-left: 12px;
+            padding-right: 100px;
+        }
+        
+        .search-button {
+            position: absolute;
+            right: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 39px;
+            padding: 0 20px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-button:hover {
+            background-color: #3367d6;
+        }
+
+        .ad-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 16px 0;
+        }
+
+        .dark .ad-box {
+            background-color: #2d3748;
+            border-color: #4a5568;
+        }
+        .tab-filter {
+            border-bottom: 3px solid transparent;
+        }
+        .tab-filter.active {
+            border-bottom-color: #4285f4;
+            color: #4285f4;
+        }
+        .widget-box {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 16px 0;
+        }
+        .dark .widget-box {
+            background-color: #2d3748;
+            border-color: #4a5568;
+        }
+        .outline-box {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .dark .outline-box {
+            border-color: #4a5568;
+        }
+        .divider {
+            border-top: 1px solid #e0e0e0;
+            margin: 12px 0;
+        }
+        .dark .divider {
+            border-color: #4a5568;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img src="amica_logo-iconographyc1-1ratio.png" alt="Amica Logo" class="w-8 h-8 mr-2">
+                <span class="text-xl font-semibold">Amica</span>
+            </a>
+            <form action="search.html" method="get" class="search-container flex-grow max-w-2xl mx-4">
+                <input type="text" name="q" id="searchInput" class="search-box w-full border border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Fragen Sie etwas...">
+                <button type="submit" class="search-button">Suchen</button>
+            </form>
+            <div class="flex items-center">
+                <button id="appMenuButton" class="mr-4 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <iconify-icon icon="heroicons:squares-2x2-16-solid"></iconify-icon>
+                </button>
+                <button class="mr-4 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <iconify-icon icon="heroicons:ellipsis-horizontal"></iconify-icon>
+                </button>
+                <button id="profileImage" class="w-10 h-10 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <iconify-icon icon="heroicons:user-circle-16-solid" width="40" height="40"></iconify-icon>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Subheader mit Tabs -->
+    <div class="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+        <div class="container mx-auto px-4">
+            <div class="flex space-x-6 overflow-x-auto">
+                <a href="#" class="tab-filter active py-3 px-1 text-sm" data-tab="all">Alles</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="images">Bilder</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="videos">Videos</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="news">News</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="shopping">Shopping</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="books">Bücher</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="finance">Finanzen</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="maps">Karten</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="travel">Reisen</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="recipes">Rezepte</a>
+                <a href="#" class="tab-filter py-3 px-1 text-sm" data-tab="jobs">Jobs</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hauptinhalt -->
+    <main class="flex-grow container mx-auto px-4 py-8 flex">
+        <div class="w-2/3 pr-8">
+            <h1 class="text-2xl font-semibold mb-4">Suchergebnisse für "<span id="searchQuery"></span>"</h1>
+            <div id="searchResults" class="space-y-8">
+                <!-- Suchergebnisse werden hier dynamisch eingefügt -->
+            </div>
+        </div>
+        <div class="w-1/3">
+            <div id="knowledgePanel" class="outline-box mb-6 relative">
+                <button class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" onclick="showKnowledgePanelMenu(event)">
+                    <iconify-icon icon="heroicons:ellipsis-vertical"></iconify-icon>
+                </button>
+                <h2 class="text-xl font-semibold mb-2">Wissensbox</h2>
+                <div id="knowledgePanelContent">
+                    <!-- Inhalt der Wissensbox wird hier dynamisch eingefügt -->
+                </div>
+                <div class="divider"></div>
+                <div id="knowledgeSources" class="mt-4 flex space-x-2 overflow-x-auto">
+                    <!-- Quellen werden hier dynamisch eingefügt -->
+                </div>
+                <a href="#" class="text-sm text-gray-500 hover:underline mt-2 block">Feedback</a>
+            </div>
+            <div id="faqSection" class="outline-box mb-6">
+                <h3 class="font-semibold mb-2">Häufig gestellte Fragen</h3>
+                <!-- FAQs werden hier dynamisch eingefügt -->
+            </div>
+            <div id="relatedTopics" class="widget-box mb-6">
+                <h3 class="font-semibold mb-2">Verwandte Themen</h3>
+                <!-- Verwandte Themen werden hier dynamisch eingefügt -->
+            </div>
+            <div id="trendingSearches" class="widget-box">
+                <h3 class="font-semibold mb-2">Aktuelle Suchtrends</h3>
+                <!-- Aktuelle Suchtrends werden hier dynamisch eingefügt -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer-Bereich -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-[#f2f2f2] dark:border-gray-700 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-start">
+                <img src="logo_gray.png" alt="Amica Logo" class="w-24 h-auto mr-24 mb-6 dark:hidden">
+                <img src="logo_white.png" alt="Amica Logo" class="w-24 h-auto mr-24 mb-6 hidden dark:block">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 flex-grow">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Über Amica</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Über uns</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Produkte</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Technologie</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Rechtliches</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Datenschutz</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Nutzungsbedingungen</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Impressum</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Hilfe</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">FAQ</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Kontakt</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sicherheit</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Einstellungen</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sprache: Deutsch</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Region: Deutschland</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Erweiterte Suche</a></li>
+                            <li>
+                                <button id="darkModeToggle" class="flex items-center text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                                    <iconify-icon icon="heroicons:moon" class="mr-2 dark:hidden"></iconify-icon>
+                                    <iconify-icon icon="heroicons:sun" class="mr-2 hidden dark:inline"></iconify-icon>
+                                    <span id="darkModeText">Dunkle Ansicht</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-500 dark:text-gray-400">
+                <p>© 2024 Amica - Die intelligente Suchmaschine</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Funktion zum Abrufen des Suchbegriffs aus der URL
+        function getSearchQuery() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('q');
+        }
+
+        // Funktion zum Anzeigen der Suchergebnisse (Beispiel)
+        function displaySearchResults(query) {
+            const searchResults = document.getElementById('searchResults');
+            let resultsHTML = '';
+
+            for (let i = 1; i <= 30; i++) {
+                resultsHTML += `
+                    <div class="border-b border-gray-200 dark:border-gray-700 pb-4 relative">
+                        <h2 class="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400">Ergebnis ${i} für ${query}</h2>
+                        <p class="text-gray-700 dark:text-gray-300">Dies ist eine Beschreibung für das ${i}. Suchergebnis.</p>
+                        <button class="absolute top-0 right-0 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" onclick="showResultMenu(event, ${i})">
+                            <iconify-icon icon="heroicons:ellipsis-vertical"></iconify-icon>
+                        </button>
+                    </div>
+                `;
+
+                // Füge zufällig Werbung oder andere Module ein
+                if (Math.random() < 0.2) {  // 20% Chance für ein zusätzliches Modul
+                    const moduleType = Math.random();
+                    if (moduleType < 0.33) {
+                        resultsHTML += createAdBox();
+                    } else if (moduleType < 0.66) {
+                        resultsHTML += createRelatedSearchesBox();
+                    } else {
+                        resultsHTML += createDropdownInfoBox(query);
+                    }
+                }
+            }
+
+            searchResults.innerHTML = resultsHTML;
+        }
+
+        function createAdBox() {
+            return `
+                <div class="outline-box my-4">
+                    <p class="text-sm text-gray-500 mb-2">Anzeige</p>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div>
+                            <h3 class="font-semibold mb-1">Werbung 1</h3>
+                            <p>Dies ist ein Beispiel für eine Werbeanzeige.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">Werbung 2</h3>
+                            <p>Eine weitere Beispielwerbung für Ihr Interesse.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">Werbung 3</h3>
+                            <p>Die letzte Werbung in dieser Reihe.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createRelatedSearchesBox() {
+            return `
+                <div class="outline-box my-4">
+                    <h3 class="font-semibold mb-2">Verwandte Suchanfragen</h3>
+                    <ul class="grid grid-cols-2 gap-2">
+                        <li>Verwandte Suche 1</li>
+                        <li>Verwandte Suche 2</li>
+                        <li>Verwandte Suche 3</li>
+                        <li>Verwandte Suche 4</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createDropdownInfoBox(query) {
+            return `
+                <div class="outline-box my-4">
+                    <details>
+                        <summary class="font-semibold cursor-pointer">Mehr Informationen zu "${query}"</summary>
+                        <div class="mt-2">
+                            <p>Hier finden Sie zusätzliche Informationen zu Ihrer Suchanfrage "${query}".</p>
+                            <ul class="list-disc list-inside mt-2">
+                                <li>Interessanter Fakt 1</li>
+                                <li>Interessanter Fakt 2</li>
+                                <li>Interessanter Fakt 3</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            `;
+        }
+
+        // Funktion zum Anzeigen der Wissensbox
+        function displayKnowledgePanel(query) {
+            const knowledgePanel = document.getElementById('knowledgePanelContent');
+            const knowledgeSources = document.getElementById('knowledgeSources');
+            const faqSection = document.getElementById('faqSection');
+
+            // Beispielinhalt für die Wissensbox
+            knowledgePanel.innerHTML = `
+                <h3 class="text-lg font-semibold mb-2">${query}</h3>
+                <img src="placeholder-image.jpg" alt="Platzhalterbild für ${query}" class="w-full h-40 object-cover rounded mb-4">
+                <p class="mb-2">Dies ist eine Kurzbeschreibung oder Definition für "${query}".</p>
+                <div class="divider"></div>
+                <table class="w-full mb-4">
+                    <tr>
+                        <td class="font-semibold">Kategorie:</td>
+                        <td>Beispielkategorie</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold">Ursprung:</td>
+                        <td>Beispielursprung</td>
+                    </tr>
+                </table>
+                <div class="divider"></div>
+                <ul class="list-disc list-inside mb-4">
+                    <li>Fakt 1 über ${query}</li>
+                    <li>Fakt 2 über ${query}</li>
+                    <li>Fakt 3 über ${query}</li>
+                </ul>
+            `;
+
+            // Beispielquellen
+            knowledgeSources.innerHTML = `
+                <span class="bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm">Quelle 1</span>
+                <span class="bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm">Quelle 2</span>
+                <span class="bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm">Quelle 3</span>
+            `;
+
+            // Beispiel-FAQs
+            faqSection.innerHTML = `
+                <h3 class="font-semibold mb-2">Häufig gestellte Fragen</h3>
+                ${Array.from({length: 5}, (_, i) => `
+                    <details class="mb-2">
+                        <summary class="cursor-pointer">Frage ${i+1} über ${query}?</summary>
+                        <div class="pl-4 mt-2">
+                            <p>Antwort auf Frage ${i+1}.</p>
+                            <img src="example-image-${i+1}.jpg" alt="Beispielbild ${i+1}" class="my-2 rounded">
+                            <p class="text-sm text-gray-500">Quelle: Beispielquelle ${i+1}</p>
+                        </div>
+                    </details>
+                    ${i < 4 ? '<div class="divider"></div>' : ''}
+                `).join('')}
+            `;
+        }
+
+        // Funktion zum Anzeigen des Ergebnismenüs
+        function showResultMenu(event, index) {
+            const menu = document.createElement('div');
+            menu.className = 'absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10';
+            menu.innerHTML = `
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Info zum Ergebnis</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Feedback geben</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Melden</a>
+            `;
+            document.body.appendChild(menu);
+
+            const button = event.target.closest('button');
+            const rect = button.getBoundingClientRect();
+            menu.style.top = `${rect.bottom + window.scrollY}px`;
+            menu.style.left = `${rect.left + window.scrollX - menu.offsetWidth + button.offsetWidth}px`;
+
+            // Entfernen des Menüs beim Klicken außerhalb
+            document.addEventListener('click', function removeMenu(e) {
+                if (!menu.contains(e.target) && e.target !== button) {
+                    document.body.removeChild(menu);
+                    document.removeEventListener('click', removeMenu);
+                }
+            });
+        }
+
+        // Funktion zum Anzeigen des Knowledge Panel Menüs
+        function showKnowledgePanelMenu(event) {
+            const menu = document.createElement('div');
+            menu.className = 'absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10';
+            menu.innerHTML = `
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Anspruch erheben</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Feedback geben</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Quelle melden</a>
+            `;
+            document.body.appendChild(menu);
+
+            const button = event.target.closest('button');
+            const rect = button.getBoundingClientRect();
+            menu.style.top = `${rect.bottom + window.scrollY}px`;
+            menu.style.left = `${rect.left + window.scrollX - menu.offsetWidth + button.offsetWidth}px`;
+
+            // Entfernen des Menüs beim Klicken außerhalb
+            document.addEventListener('click', function removeMenu(e) {
+                if (!menu.contains(e.target) && e.target !== button) {
+                    document.body.removeChild(menu);
+                    document.removeEventListener('click', removeMenu);
+                }
+            });
+        }
+
+        // Funktion zum Anzeigen des Widget-Menüs
+        function showWidgetMenu(event) {
+            const menu = document.createElement('div');
+            menu.className = 'absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg z-10';
+            menu.innerHTML = `
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Widget anpassen</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Feedback geben</a>
+                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700">Widget ausblenden</a>
+            `;
+            document.body.appendChild(menu);
+
+            const button = event.target.closest('button');
+            const rect = button.getBoundingClientRect();
+            menu.style.top = `${rect.bottom + window.scrollY}px`;
+            menu.style.left = `${rect.left + window.scrollX - menu.offsetWidth + button.offsetWidth}px`;
+
+            // Entfernen des Menüs beim Klicken außerhalb
+            document.addEventListener('click', function removeMenu(e) {
+                if (!menu.contains(e.target) && e.target !== button) {
+                    document.body.removeChild(menu);
+                    document.removeEventListener('click', removeMenu);
+                }
+            });
+        }
+
+        // Darkmode Toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            updateDarkModeText();
+        });
+
+        function updateDarkModeText() {
+            const darkModeText = document.getElementById('darkModeText');
+            if (document.documentElement.classList.contains('dark')) {
+                darkModeText.textContent = 'Helle Ansicht';
+            } else {
+                darkModeText.textContent = 'Dunkle Ansicht';
+            }
+        }
+
+        // Beim Laden der Seite
+        document.addEventListener('DOMContentLoaded', function() {
+            const query = getSearchQuery();
+            document.getElementById('searchQuery').textContent = query;
+            document.getElementById('searchInput').value = query;
+            switchTab('all');
+            displayKnowledgePanel(query);
+
+            // Verwandte Themen
+            document.getElementById('relatedTopics').innerHTML += `
+                <ul class="list-disc list-inside">
+                    <li>Verwandtes Thema 1</li>
+                    <li>Verwandtes Thema 2</li>
+                    <li>Verwandtes Thema 3</li>
+                </ul>
+            `;
+
+            // Aktuelle Suchtrends
+            document.getElementById('trendingSearches').innerHTML += `
+                <ol class="list-decimal list-inside">
+                    <li>Trend 1</li>
+                    <li>Trend 2</li>
+                    <li>Trend 3</li>
+                    <li>Trend 4</li>
+                    <li>Trend 5</li>
+                </ol>
+            `;
+
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            updateDarkModeText();
+
+            // Event-Listener für Tabs
+            document.querySelectorAll('.tab-filter').forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    switchTab(this.getAttribute('data-tab'));
+                });
+            });
+        });
+
+        function switchTab(tabName) {
+            // Alle Tabs deaktivieren
+            document.querySelectorAll('.tab-filter').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Ausgewählten Tab aktivieren
+            document.querySelector(`.tab-filter[data-tab="${tabName}"]`).classList.add('active');
+
+            // Inhalte basierend auf Tab anzeigen
+            displayContent(tabName);
+        
+
+        function displayContent(tabName) {
+            const query = getSearchQuery();
+            const searchResults = document.getElementById('searchResults');
+            let resultsHTML = '';
+            switch(tabName) {
+                case 'images':
+                    for (let i = 1; i <= 20; i++) {
+                        resultsHTML += `
+                            <div class="w-1/4 p-2">
+                                <img src="https://picsum.photos/200/300?random=${i}" alt="${query} Bild ${i}" class="w-full h-40 object-cover rounded">
+                                <p class="mt-2 text-sm">${query} Bild ${i}</p>
+                            </div>
+                        `;
+                    }
+                    searchResults.innerHTML = `<div class="flex flex-wrap">${resultsHTML}</div>`;
+                    resultsHTML += createAdBox();
+                    resultsHTML += createImagesContent();
+                    searchResults.innerHTML = resultsHTML;
+                    break;
+                case 'videos':
+                    const videoSources = ['YouTube', 'Vimeo', 'Dailymotion'];
+                    for (let i = 1; i <= 12; i++) {
+                        const source = videoSources[Math.floor(Math.random() * videoSources.length)];
+                        resultsHTML += `
+                            <div class="w-1/3 p-2">
+                                <div class="aspect-w-16 aspect-h-9 mb-2">
+                                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="w-full h-full"></iframe>
+                                </div>
+                                <h3 class="font-semibold">${query} Video ${i}</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Quelle: ${source}</p>
+                            </div>
+                        `;
+                    }
+                    searchResults.innerHTML = `<div class="flex flex-wrap">${resultsHTML}</div>`;
+                    resultsHTML += createRelatedSearchesBox();
+                    break;
+                case 'news':
+                    for (let i = 1; i <= 10; i++) {
+                        resultsHTML += `
+                            <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                                <h2 class="text-xl font-semibold mb-2">${query} Nachricht ${i}</h2>
+                                <p class="text-gray-600 dark:text-gray-400 mb-2">Kurze Beschreibung der Nachricht ${i} über ${query}.</p>
+                                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                    <span>Nachrichtenquelle ${i}</span>
+                                    <span class="mx-2">•</span>
+                                    <span>vor ${Math.floor(Math.random() * 24)} Stunden</span>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    searchResults.innerHTML = resultsHTML;
+                    resultsHTML += createAdBox();
+                    break;
+                case 'shopping':
+                    for (let i = 1; i <= 12; i++) {
+                        resultsHTML += `
+                            <div class="w-1/4 p-2">
+                                <img src="https://picsum.photos/200/200?random=${i}" alt="${query} Produkt ${i}" class="w-full h-40 object-cover rounded mb-2">
+                                <h3 class="font-semibold">${query} Produkt ${i}</h3>
+                                <p class="text-green-600 dark:text-green-400 font-semibold">€${(Math.random() * 100).toFixed(2)}</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Verkäufer ${i}</p>
+                            </div>
+                        `;
+                    }
+                    searchResults.innerHTML = `<div class="flex flex-wrap">${resultsHTML}</div>`;
+                    resultsHTML += createRelatedSearchesBox();
+                    resultsHTML += createProductsContent();
+
+                    searchResults.innerHTML = resultsHTML;
+                    break;
+                case 'books':
+                    resultsHTML += `
+                        <div class="mb-8">
+                            <h2 class="text-2xl font-semibold mb-4">Buchergebnisse für "${query}"</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    `;
+                    for (let i = 1; i <= 6; i++) {
+                        resultsHTML += `
+                            <div class="flex bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+                                <img src="https://picsum.photos/120/180?random=${i}" alt="${query} Buch ${i}" class="w-24 h-auto object-cover">
+                                <div class="p-4 flex flex-col justify-between">
+                                    <div>
+                                        <h3 class="font-semibold mb-1">${query}: Eine ${['faszinierende', 'tiefgründige', 'revolutionäre', 'inspirierende'][i % 4]} Perspektive</h3>
+                                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">von Autor ${String.fromCharCode(65 + i)}</p>
+                                        <p class="text-sm mb-2 line-clamp-2">Eine fesselnde Erkundung von ${query}, die neue Einblicke und Perspektiven bietet.</p>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-lg font-bold text-green-600 dark:text-green-400">€${(Math.random() * 30 + 10).toFixed(2)}</span>
+                                        <div class="flex items-center">
+                                            <span class="text-yellow-400">★★★★</span><span class="text-yellow-400 text-opacity-50">★</span>
+                                            <span class="text-sm text-gray-600 dark:text-gray-400 ml-1">(${Math.floor(Math.random() * 1000)})</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    resultsHTML += `
+                            </div>
+                        </div>
+                    `;
+                    
+                    resultsHTML += createBookGenreWidget(query);
+                    resultsHTML += createPopularAuthorsWidget(query);
+                    resultsHTML += createAdBox();
+                    resultsHTML += createBookRecommendationWidget(query);
+                    resultsHTML += createRelatedSearchesBox();
+                    
+                    searchResults.innerHTML = resultsHTML;
+                    break;
+                case 'finance':
+                    const companies = ['Amica AG', 'TechCorp', 'GreenEnergy', 'FoodChain', 'MediaGroup'];
+                    resultsHTML += `
+                        <div class="mb-8">
+                            <h2 class="text-2xl font-semibold mb-4">Finanzübersicht für "${query}"</h2>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                                    <h3 class="text-lg font-semibold mb-2">Aktienkurs</h3>
+                                    <p class="text-3xl font-bold text-green-600 dark:text-green-400">€${(Math.random() * 1000).toFixed(2)}</p>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">+${(Math.random() * 5).toFixed(2)}% (Heute)</p>
+                                </div>
+                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+                                    <h3 class="text-lg font-semibold mb-2">Marktkapitalisierung</h3>
+                                    <p class="text-3xl font-bold">€${(Math.random() * 1000).toFixed(2)} Mrd.</p>
+                                </div>
+                            </div>
+                            <div class="overflow-x-auto mb-6">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="bg-gray-100 dark:bg-gray-800">
+                                            <th class="p-3">Unternehmen</th>
+                                            <th class="p-3">Kurs</th>
+                                            <th class="p-3">Änderung</th>
+                                            <th class="p-3">Änderung %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${companies.map(company => {
+                                            const change = (Math.random() * 10 - 5).toFixed(2);
+                                            const changePercent = (change / 100).toFixed(2);
+                                            const isPositive = change > 0;
+                                            return `
+                                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                                    <td class="p-3">${company}</td>
+                                                    <td class="p-3">€${(Math.random() * 1000).toFixed(2)}</td>
+                                                    <td class="p-3 ${isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">${isPositive ? '+' : ''}${change}</td>
+                                                    <td class="p-3 ${isPositive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}">${isPositive ? '+' : ''}${changePercent}%</td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    `;
+                    
+                    resultsHTML += createFinancialNewsWidget(query);
+                    resultsHTML += createFinancialAnalysisWidget(query);
+                    resultsHTML += createAdBox();
+                    
+                    for (let i = 1; i <= 5; i++) {
+                        resultsHTML += `
+                            <div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+                                <h2 class="text-xl font-semibold mb-2 text-blue-600 dark:text-blue-400">Finanzergebnis ${i} für ${query}</h2>
+                                <p class="text-gray-700 dark:text-gray-300">Dies ist eine detaillierte Finanzanalyse oder ein Bericht über ${query}.</p>
+                            </div>
+                        `;
+                        
+                        if (i % 2 === 0) {
+                            resultsHTML += createRelatedSearchesBox();
+                        }
+                    }
+                    
+                    searchResults.innerHTML = resultsHTML;
+                    break;
+                default:
+                    displaySearchResults(query);
+            }
+        }
+
+        function createFinancialNewsWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Aktuelle Finanznachrichten zu ${query}</h3>
+                    <ul class="space-y-2">
+                        ${Array.from({length: 3}, (_, i) => `
+                            <li>
+                                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">${query} meldet Quartalszahlen über den Erwartungen</a>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Vor ${Math.floor(Math.random() * 12)} Stunden</p>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createFinancialAnalysisWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Finanzanalyse für ${query}</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">Stärken</h4>
+                            <ul class="list-disc list-inside text-sm">
+                                <li>Starke Marktposition</li>
+                                <li>Innovative Produkte</li>
+                                <li>Solide Finanzen</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Schwächen</h4>
+                            <ul class="list-disc list-inside text-sm">
+                                <li>Hohe Betriebskosten</li>
+                                <li>Abhängigkeit von Schlüsselmärkten</li>
+                                <li>Regulatorische Herausforderungen</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createBookGenreWidget(query) {
+            const genres = ['Roman', 'Sachbuch', 'Biografie', 'Science-Fiction', 'Fantasy', 'Krimi', 'Kinderbuch', 'Ratgeber'];
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Beliebte Genres für "${query}"</h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${genres.map(genre => `
+                            <a href="#" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition">${genre}</a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createPopularAuthorsWidget(query) {
+            const authors = ['Max Mustermann', 'Erika Musterfrau', 'John Doe', 'Jane Smith', 'Hans Schmidt'];
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Populäre Autoren zu "${query}"</h3>
+                    <ul class="space-y-2">
+                        ${authors.map(author => `
+                            <li class="flex items-center">
+                                <img src="https://picsum.photos/40/40?random=${author}" alt="${author}" class="w-10 h-10 rounded-full mr-3">
+                                <span>${author}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        // ... vorheriger Code bleibt unverändert ...
+
+       
+
+        function createProductsContent(query) {
+            let content = `
+                <h2 class="text-2xl font-semibold mb-4">Produkte zu "${query}"</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            `;
+            
+            for (let i = 1; i <= 8; i++) {
+                content += `
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/300/200?random=${i}" alt="${query} Produkt ${i}" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">${query} Produkt ${i}</h3>
+                            <p class="text-green-600 dark:text-green-400 font-bold mb-2">€${(Math.random() * 100 + 10).toFixed(2)}</p>
+                            <div class="flex items-center mb-2">
+                                <span class="text-yellow-400">★★★★</span><span class="text-yellow-400 text-opacity-50">★</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-400 ml-1">(${Math.floor(Math.random() * 1000)})</span>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Verkäufer ${i}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content += `
+                </div>
+                ${createProductCategoriesWidget(query)}
+                ${createAdBox()}
+                ${createTopBrandsWidget(query)}
+                ${createProductComparisonWidget(query)}
+                ${createRelatedSearchesBox()}
+            `;
+            
+            return content;
+        }
+
+        function createNewsContent(query) {
+            let content = `
+                <h2 class="text-2xl font-semibold mb-4">Neuigkeiten zu "${query}"</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            `;
+            
+            for (let i = 1; i <= 6; i++) {
+                content += `
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                        <img src="https://picsum.photos/400/200?random=${i}" alt="${query} Nachricht ${i}" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">${query}: Wichtige Entwicklung ${i}</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Eine ausführliche Berichterstattung über die neuesten Entwicklungen im Zusammenhang mit ${query}.</p>
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                <span>Nachrichtenquelle ${i}</span>
+                                <span class="mx-2">•</span>
+                                <span>vor ${Math.floor(Math.random() * 24)} Stunden</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content += `
+                </div>
+                ${createBreakingNewsWidget(query)}
+                ${createNewsSourcesWidget(query)}
+                ${createAdBox()}
+                ${createOpinionPiecesWidget(query)}
+                ${createRelatedSearchesBox()}
+            `;
+            
+            return content;
+        }
+
+        function createPhotosContent(query) {
+            let content = `
+                <h2 class="text-2xl font-semibold mb-4">Fotos zu "${query}"</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+            `;
+            
+            for (let i = 1; i <= 16; i++) {
+                content += `
+                    <div class="relative group">
+                        <img src="https://picsum.photos/300/300?random=${i}" alt="${query} Foto ${i}" class="w-full h-64 object-cover rounded-lg">
+                        <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-lg">
+                            <p class="text-white text-center">${query} Foto ${i}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content += `
+                </div>
+                ${createPhotoCollectionsWidget(query)}
+                ${createPopularPhotographersWidget(query)}
+                ${createAdBox()}
+                ${createPhotoEditingTipsWidget(query)}
+                ${createRelatedSearchesBox()}
+            `;
+            
+            return content;
+        }
+
+        function createVideosContent(query) {
+            let content = `
+                <h2 class="text-2xl font-semibold mb-4">Videos zu "${query}"</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            `;
+            
+            const videoSources = ['YouTube', 'Vimeo', 'Dailymotion', 'TikTok'];
+            for (let i = 1; i <= 9; i++) {
+                const source = videoSources[Math.floor(Math.random() * videoSources.length)];
+                content += `
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen class="w-full h-full"></iframe>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">${query} Video ${i}: Faszinierende Einblicke</h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Ein aufschlussreiches Video über ${query} mit überraschenden Fakten und Erkenntnissen.</p>
+                            <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                                <span>Quelle: ${source}</span>
+                                <span>${Math.floor(Math.random() * 1000000)} Aufrufe</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content += `
+                </div>
+                ${createTrendingVideosWidget(query)}
+                ${createVideoCreatorsWidget(query)}
+                ${createAdBox()}
+                ${createLiveStreamsWidget(query)}
+                ${createRelatedSearchesBox()}
+            `;
+            
+            return content;
+        }
+
+        function createMapsContent(query) {
+            let content = `
+                <h2 class="text-2xl font-semibold mb-4">Kartenansicht für "${query}"</h2>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden mb-8">
+                    <div class="aspect-w-16 aspect-h-9">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.409042649219!2d13.372469215714847!3d52.516339643881406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a851c655f20989%3A0x26bbfb4e84674c63!2sBrandenburger%20Tor!5e0!3m2!1sde!2sde!4v1621436361119!5m2!1sde!2sde" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+                ${createNearbyPlacesWidget(query)}
+                ${createDirectionsWidget(query)}
+                ${createAdBox()}
+                ${createLocalReviewsWidget(query)}
+                ${createRelatedSearchesBox()}
+            `;
+            
+            return content;
+        }
+
+        function createJobsContent(query) {
+            let content = `
+                <h2 class="text-2xl font-semibold mb-4">Stellenangebote zu "${query}"</h2>
+                <div class="space-y-6 mb-8">
+            `;
+            
+            for (let i = 1; i <= 5; i++) {
+                content += `
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold text-lg mb-2">${query} Spezialist (m/w/d)</h3>
+                        <p class="text-gray-600 dark:text-gray-400 mb-2">Unternehmen ${i}</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">Berlin, Deutschland • Vollzeit</p>
+                        <p class="mb-4">Wir suchen einen erfahrenen ${query} Spezialisten, der unser Team verstärkt und innovative Lösungen entwickelt.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 dark:text-green-400 font-semibold">€${(Math.random() * 50000 + 30000).toFixed(0)} - €${(Math.random() * 50000 + 80000).toFixed(0)} / Jahr</span>
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Bewerben</button>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content += `
+                </div>
+                ${createJobCategoriesWidget(query)}
+                ${createTopEmployersWidget(query)}
+                ${createAdBox()}
+                ${createCareerAdviceWidget(query)}
+                ${createRelatedSearchesBox()}
+            `;
+            
+            return content;
+        }
+
+        // Zusätzliche Widget-Funktionen
+
+        function createProductCategoriesWidget(query) {
+            const categories = ['Elektronik', 'Mode', 'Haushalt', 'Sport', 'Bücher', 'Spielzeug'];
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Produktkategorien für "${query}"</h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${categories.map(category => `
+                            <a href="#" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition">${category}</a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createTopBrandsWidget(query) {
+            const brands = ['Brand A', 'Brand B', 'Brand C', 'Brand D', 'Brand E'];
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Top Marken für "${query}"</h3>
+                    <div class="flex justify-between">
+                        ${brands.map(brand => `
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full mb-2 flex items-center justify-center">${brand[0]}</div>
+                                <span class="text-sm">${brand}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createProductComparisonWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Produktvergleich für "${query}"</h3>
+                    <table class="w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Produkt</th>
+                                <th class="text-left">Preis</th>
+                                <th class="text-left">Bewertung</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${Array.from({length: 3}, (_, i) => `
+                                <tr>
+                                    <td>${query} Produkt ${i+1}</td>
+                                    <td>€${(Math.random() * 100 + 10).toFixed(2)}</td>
+                                    <td>
+                                        <span class="text-yellow-400">★★★★</span><span class="text-yellow-400 text-opacity-50">★</span>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">(${Math.floor(Math.random() * 1000)})</span>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function createBreakingNewsWidget(query) {
+            return `
+                <div class="bg-red-600 text-white p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-2">Eilmeldung</h3>
+                    <p>Wichtige Entwicklung im Zusammenhang mit ${query}! Klicken Sie hier für die neuesten Updates.</p>
+                </div>
+            `;
+        }
+        function createNewsSourcesWidget(query) {
+            const sources = ['Quelle A', 'Quelle B', 'Quelle C', 'Quelle D', 'Quelle E'];
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Top Nachrichtenquellen für "${query}"</h3>
+                    <ul class="space-y-2">
+                        ${sources.map(source => `
+                            <li class="flex items-center">
+                                <span class="w-4 h-4 bg-blue-500 rounded-full mr-2"></span>
+                                <span>${source}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createOpinionPiecesWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Meinungsbeiträge zu "${query}"</h3>
+                    <ul class="space-y-2">
+                        ${Array.from({length: 3}, (_, i) => `
+                            <li>
+                                <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline">Warum ${query} wichtiger ist als je zuvor</a>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">von Experte ${i+1}</p>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createPhotoCollectionsWidget(query) {
+            const collections = ['Natur', 'Stadt', 'Menschen', 'Technologie', 'Kunst'];
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Fotokollektionen zu "${query}"</h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${collections.map(collection => `
+                            <a href="#" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition">${collection}</a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createPopularPhotographersWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Beliebte Fotografen für "${query}"</h3>
+                    <div class="flex justify-between">
+                        ${Array.from({length: 5}, (_, i) => `
+                            <div class="text-center">
+                                <img src="https://picsum.photos/50/50?random=${i}" alt="Fotograf ${i+1}" class="w-12 h-12 rounded-full mb-2 mx-auto">
+                                <span class="text-sm">Fotograf ${i+1}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createPhotoEditingTipsWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Fototipps für "${query}"</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Optimale Belichtung einstellen</li>
+                        <li>Richtige Perspektive wählen</li>
+                        <li>Nachbearbeitung mit Lightroom</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createTrendingVideosWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Trendende Videos zu "${query}"</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        ${Array.from({length: 4}, (_, i) => `
+                            <div>
+                                <div class="aspect-w-16 aspect-h-9 mb-2">
+                                    <img src="https://picsum.photos/300/200?random=${i}" alt="Trending Video ${i+1}" class="w-full h-full object-cover rounded">
+                                </div>
+                                <p class="text-sm font-semibold">${query} Trend ${i+1}</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">${Math.floor(Math.random() * 1000000)} Aufrufe</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createVideoCreatorsWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Top Video-Ersteller für "${query}"</h3>
+                    <div class="flex justify-between">
+                        ${Array.from({length: 5}, (_, i) => `
+                            <div class="text-center">
+                                <img src="https://picsum.photos/50/50?random=${i+10}" alt="Creator ${i+1}" class="w-12 h-12 rounded-full mb-2 mx-auto">
+                                <span class="text-sm">Creator ${i+1}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createLiveStreamsWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Live-Streams zu "${query}"</h3>
+                    <div class="space-y-2">
+                        ${Array.from({length: 3}, (_, i) => `
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 bg-red-500 rounded-full mr-2 animate-pulse"></div>
+                                <span>${query} Live-Event ${i+1}</span>
+                                <span class="ml-auto text-sm text-gray-600 dark:text-gray-400">${Math.floor(Math.random() * 10000)} Zuschauer</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createNearbyPlacesWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Orte in der Nähe zu "${query}"</h3>
+                    <ul class="space-y-2">
+                        ${Array.from({length: 5}, (_, i) => `
+                            <li class="flex items-center">
+                                <span class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center mr-2">${i+1}</span>
+                                <span>${query} Ort ${i+1}</span>
+                                <span class="ml-auto text-sm text-gray-600 dark:text-gray-400">${(Math.random() * 5).toFixed(1)} km</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createDirectionsWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Wegbeschreibung zu "${query}"</h3>
+                    <div class="flex items-center mb-2">
+                        <input type="text" placeholder="Start" class="flex-grow p-2 border rounded-l">
+                        <button class="bg-blue-500 text-white p-2 rounded-r">Route</button>
+                    </div>
+                    <div class="text-sm text-gray-600 dark:text-gray-400">
+                        <p>Geschätzte Fahrzeit: 25 Minuten</p>
+                        <p>Entfernung: 15,3 km</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createLocalReviewsWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Lokale Bewertungen für "${query}"</h3>
+                    ${Array.from({length: 3}, (_, i) => `
+                        <div class="mb-2">
+                            <div class="flex items-center mb-1">
+                                <span class="text-yellow-400">★★★★</span><span class="text-yellow-400 text-opacity-50">★</span>
+                                <span class="ml-2 font-semibold">Benutzer ${i+1}</span>
+                            </div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Tolle Erfahrung mit ${query}! Sehr zu empfehlen.</p>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function createJobCategoriesWidget(query) {
+            const categories = ['IT', 'Marketing', 'Vertrieb', 'Finanzen', 'Personalwesen', 'Produktion'];
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Jobkategorien für "${query}"</h3>
+                    <div class="flex flex-wrap gap-2">
+                        ${categories.map(category => `
+                            <a href="#" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition">${category}</a>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createTopEmployersWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Top Arbeitgeber für "${query}"</h3>
+                    <div class="grid grid-cols-3 gap-4">
+                        ${Array.from({length: 6}, (_, i) => `
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full mb-2 flex items-center justify-center mx-auto">AG ${i+1}</div>
+                                <span class="text-sm">Arbeitgeber ${i+1}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createCareerAdviceWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Karrieretipps für "${query}"</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Netzwerken Sie in der ${query}-Branche</li>
+                        <li>Entwickeln Sie Ihre ${query}-Fähigkeiten weiter</li>
+                        <li>Bleiben Sie über ${query}-Trends informiert</li>
+                    </ul>
+                </div>
+            `;
+        }
+
+        function createBookRecommendationWidget(query) {
+            return `
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-6">
+                    <h3 class="text-lg font-semibold mb-4">Empfehlung der Woche</h3>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/120/180?random=recommendation" alt="Empfohlenes Buch" class="w-24 h-auto object-cover mr-4">
+                        <div>
+                            <h4 class="font-semibold mb-1">${query}: Eine neue Perspektive</h4>
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">von Bestseller-Autor XYZ</p>
+                            <p class="text-sm mb-2 line-clamp-3">Dieses bahnbrechende Werk bietet einen frischen Blick auf ${query} und seine Bedeutung in der modernen Welt.</p>
+                            <div class="flex items-center">
+                                <span class="text-yellow-400">★★★★★</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-400 ml-1">(1.337 Bewertungen)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }        
+    }
+    </script>
+</body>
+</html>

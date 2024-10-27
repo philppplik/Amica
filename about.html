@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="de" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Über Amica - Die intelligente deutsche Suchmaschine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        amica: {
+                            light: '#4285f4',
+                            dark: '#3367d6',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .hero-pattern {
+            background-color: #4285f4;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M192 15v2a11 11 0 0 0-11 11c0 1.94 1.16 4.75 2.53 6.11l2.36 2.36a6.93 6.93 0 0 1 1.22 7.56l-.43.84a8.08 8.08 0 0 1-6.66 4.13H145v35.02a6.1 6.1 0 0 0 3.03 4.87l.84.43c1.58.79 4 .4 5.24-.85l2.36-2.36a12.04 12.04 0 0 1 7.51-3.11 13 13 0 1 1 .02 26 12 12 0 0 1-7.53-3.11l-2.36-2.36a4.93 4.93 0 0 0-5.24-.85l-.84.43a6.1 6.1 0 0 0-3.03 4.87V143h35.02a8.08 8.08 0 0 1 6.66 4.13l.43.84a6.91 6.91 0 0 1-1.22 7.56l-2.36 2.36A10.06 10.06 0 0 0 181 164a11 11 0 0 0 11 11v2a13 13 0 0 1-13-13 12 12 0 0 1 3.11-7.53l2.36-2.36a4.93 4.93 0 0 0 .85-5.24l-.43-.84a6.1 6.1 0 0 0-4.87-3.03H145v35.02a8.08 8.08 0 0 1-4.13 6.66l-.84.43a6.91 6.91 0 0 1-7.56-1.22l-2.36-2.36A10.06 10.06 0 0 0 124 181a11 11 0 0 0-11 11h-2a13 13 0 0 1 13-13c2.47 0 5.79 1.37 7.53 3.11l2.36 2.36a4.94 4.94 0 0 0 5.24.85l.84-.43a6.1 6.1 0 0 0 3.03-4.87V145h-35.02a8.08 8.08 0 0 1-6.66-4.13l-.43-.84a6.91 6.91 0 0 1 1.22-7.56l2.36-2.36A10.06 10.06 0 0 0 107 124a11 11 0 0 0-22 0c0 1.94 1.16 4.75 2.53 6.11l2.36 2.36a6.93 6.93 0 0 1 1.22 7.56l-.43.84a8.08 8.08 0 0 1-6.66 4.13H49v35.02a6.1 6.1 0 0 0 3.03 4.87l.84.43c1.58.79 4 .4 5.24-.85l2.36-2.36a12.04 12.04 0 0 1 7.51-3.11A13 13 0 0 1 81 192h-2a11 11 0 0 0-11-11c-1.94 0-4.75 1.16-6.11 2.53l-2.36 2.36a6.93 6.93 0 0 1-7.56 1.22l-.84-.43a8.08 8.08 0 0 1-4.13-6.66V145H11.98a6.1 6.1 0 0 0-4.87 3.03l-.43.84c-.79 1.58-.4 4 .85 5.24l2.36 2.36a12.04 12.04 0 0 1 3.11 7.51A13 13 0 0 1 0 177v-2a11 11 0 0 0 11-11c0-1.94-1.16-4.75-2.53-6.11l-2.36-2.36a6.93 6.93 0 0 1-1.22-7.56l.43-.84a8.08 8.08 0 0 1 6.66-4.13H47v-35.02a6.1 6.1 0 0 0-3.03-4.87l-.84-.43c-1.59-.8-4-.4-5.24.85l-2.36 2.36A12 12 0 0 1 28 109a13 13 0 1 1 0-26c2.47 0 5.79 1.37 7.53 3.11l2.36 2.36a4.94 4.94 0 0 0 5.24.85l.84-.43A6.1 6.1 0 0 0 47 84.02V49H11.98a8.08 8.08 0 0 1-6.66-4.13l-.43-.84a6.91 6.91 0 0 1 1.22-7.56l2.36-2.36A10.06 10.06 0 0 0 11 28 11 11 0 0 0 0 17v-2a13 13 0 0 1 13 13c0 2.47-1.37 5.79-3.11 7.53l-2.36 2.36a4.94 4.94 0 0 0-.85 5.24l.43.84A6.1 6.1 0 0 0 11.98 47H47V11.98a8.08 8.08 0 0 1 4.13-6.66l.84-.43a6.91 6.91 0 0 1 7.56 1.22l2.36 2.36A10.06 10.06 0 0 0 68 11 11 11 0 0 0 79 0h2a13 13 0 0 1-13 13 12 12 0 0 1-7.53-3.11l-2.36-2.36a4.93 4.93 0 0 0-5.24-.85l-.84.43A6.1 6.1 0 0 0 49 11.98V47h35.02a8.08 8.08 0 0 1 6.66 4.13l.43.84a6.91 6.91 0 0 1-1.22 7.56l-2.36 2.36A10.06 10.06 0 0 0 85 68a11 11 0 0 0 22 0c0-1.94-1.16-4.75-2.53-6.11l-2.36-2.36a6.93 6.93 0 0 1-1.22-7.56l.43-.84a8.08 8.08 0 0 1 6.66-4.13H143V11.98a6.1 6.1 0 0 0-3.03-4.87l-.84-.43c-1.59-.8-4-.4-5.24.85l-2.36 2.36A12 12 0 0 1 124 13a13 13 0 0 1-13-13h2a11 11 0 0 0 11 11c1.94 0 4.75-1.16 6.11-2.53l2.36-2.36a6.93 6.93 0 0 1 7.56-1.22l.84.43a8.08 8.08 0 0 1 4.13 6.66V47h35.02a6.1 6.1 0 0 0 4.87-3.03l.43-.84c.8-1.59.4-4-.85-5.24l-2.36-2.36A12 12 0 0 1 179 28a13 13 0 0 1 13-13zM84.02 143a6.1 6.1 0 0 0 4.87-3.03l.43-.84c.8-1.59.4-4-.85-5.24l-2.36-2.36A12 12 0 0 1 83 124a13 13 0 1 1 26 0c0 2.47-1.37 5.79-3.11 7.53l-2.36 2.36a4.94 4.94 0 0 0-.85 5.24l.43.84a6.1 6.1 0 0 0 4.87 3.03H143v-35.02a8.08 8.08 0 0 1 4.13-6.66l.84-.43a6.91 6.91 0 0 1 7.56 1.22l2.36 2.36A10.06 10.06 0 0 0 164 107a11 11 0 0 0 0-22c-1.94 0-4.75 1.16-6.11 2.53l-2.36 2.36a6.93 6.93 0 0 1-7.56 1.22l-.84-.43a8.08 8.08 0 0 1-4.13-6.66V49h-35.02a6.1 6.1 0 0 0-4.87 3.03l-.43.84c-.79 1.58-.4 4 .85 5.24l2.36 2.36a12.04 12.04 0 0 1 3.11 7.51A13 13 0 1 1 83 68a12 12 0 0 1 3.11-7.53l2.36-2.36a4.93 4.93 0 0 0 .85-5.24l-.43-.84A6.1 6.1 0 0 0 84.02 49H49v35.02a8.08 8.08 0 0 1-4.13 6.66l-.84.43a6.91 6.91 0 0 1-7.56-1.22l-2.36-2.36A10.06 10.06 0 0 0 28 85a11 11 0 0 0 0 22c1.94 0 4.75-1.16 6.11-2.53l2.36-2.36a6.93 6.93 0 0 1 7.56-1.22l.84.43a8.08 8.08 0 0 1 4.13 6.66V143h35.02z'%3E%3C/path%3E%3C/svg%3E");
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .search-container {
+            position: relative;
+        }
+        
+        .search-box {
+            height: 45px;
+            padding-left: 12px;
+            padding-right: 100px;
+        }
+        
+        .search-button {
+            position: absolute;
+            right: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 39px;
+            padding: 0 20px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-button:hover {
+            background-color: #3367d6;
+        }
+    </style>
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body class="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <!-- Header mit Benutzermenü -->
+    <header class="bg-transparent border-b border-[#f2f2f2] dark:border-gray-700">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="amica_logo-iconographyc1-1ratio.png" alt="Amica Logo" class="w-10 h-10">
+                <span class="ml-2 text-xl font-semibold">Amica</span>
+            </a>
+            <div class="flex items-center">
+                <button id="appMenuButton" class="mr-4 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <iconify-icon icon="heroicons:squares-2x2-16-solid"></iconify-icon>
+                </button>
+                <button class="mr-4 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <iconify-icon icon="heroicons:ellipsis-horizontal"></iconify-icon>
+                </button>
+                <button id="profileImage" class="w-10 h-10 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <iconify-icon icon="heroicons:user-circle-16-solid" width="40" height="40"></iconify-icon>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- App-Menü -->
+    <div id="appMenu" class="hidden absolute right-4 top-16 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg z-20 w-72 max-h-96 overflow-y-auto">
+        <h3 class="text-lg font-semibold mb-4 dark:text-white">Alle Apps</h3>
+        <div class="grid grid-cols-3 gap-4">
+            <!-- App-Icons hier einfügen -->
+        </div>
+    </div>
+
+    <!-- Login-Aufforderung -->
+    <div id="loginPrompt" class="hidden absolute right-4 top-16 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg z-10">
+        <p class="text-gray-600 dark:text-gray-300 mb-4">Melden Sie sich an, um alle Funktionen zu nutzen!</p>
+        <div class="flex space-x-2">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Registrieren</button>
+            <button class="border border-blue-500 text-blue-500 px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700">Anmelden</button>
+        </div>
+    </div>
+
+    <!-- Hero-Bereich -->
+    <section class="hero-pattern text-white py-20">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-float">Willkommen bei Amica</h1>
+            <p class="text-xl md:text-2xl mb-8">Die intelligente deutsche Suchmaschine, die Ihre Privatsphäre respektiert</p>
+            <a href="#" class="bg-white text-amica-light hover:bg-gray-100 font-semibold py-2 px-4 rounded-full transition duration-300">Jetzt entdecken</a>
+        </div>
+    </section>
+
+    <!-- Hauptinhalt -->
+    <main class="flex-grow container mx-auto px-4 py-12">
+        <!-- Über uns -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-6">Über Amica</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <p class="mb-4">Amica ist mehr als nur eine Suchmaschine. Wir sind Ihre vertrauenswürdige Begleiterin in der digitalen Welt, die Ihnen hilft, genau das zu finden, was Sie suchen - schnell, präzise und mit Respekt für Ihre Privatsphäre.</p>
+                    <p>Gegründet von einem Team leidenschaftlicher deutscher Entwickler, vereint Amica modernste Technologie mit einem tiefen Verständnis für die Bedürfnisse unserer Nutzer.</p>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4">Unsere Kernwerte</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Präzision in den Suchergebnissen</li>
+                        <li>Schutz der Privatsphäre</li>
+                        <li>Transparenz in unserem Handeln</li>
+                        <li>Innovationsfreude</li>
+                        <li>Verantwortungsvoller Umgang mit Daten</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Datenschutz -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-6">Ihr Datenschutz hat Priorität</h2>
+            <div class="bg-amica-light text-white rounded-lg p-8">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <iconify-icon icon="mdi:shield-check" width="120" height="120"></iconify-icon>
+                    </div>
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold mb-4">Wir schützen Ihre Daten</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Keine Speicherung persönlicher Suchanfragen</li>
+                            <li>Verschlüsselte Verbindungen</li>
+                            <li>Keine Weitergabe von Daten an Dritte</li>
+                            <li>Transparente Datenschutzrichtlinien</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technologie -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-6">Unsere Technologie</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transform hover:scale-105 transition duration-300">
+                    <iconify-icon icon="mdi:brain" class="text-amica-light mb-4" width="48" height="48"></iconify-icon>
+                    <h3 class="text-xl font-semibold mb-2">KI-gestützte Suche</h3>
+                    <p>Unsere fortschrittlichen Algorithmen verstehen den Kontext Ihrer Suchanfragen und liefern präzise Ergebnisse.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transform hover:scale-105 transition duration-300">
+                    <iconify-icon icon="mdi:rocket-launch" class="text-amica-light mb-4" width="48" height="48"></iconify-icon>
+                    <h3 class="text-xl font-semibold mb-2">Blitzschnelle Ergebnisse</h3>
+                    <p>Dank optimierter Serverinfrastruktur erhalten Sie Ihre Suchergebnisse in Sekundenbruchteilen.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transform hover:scale-105 transition duration-300">
+                    <iconify-icon icon="mdi:earth" class="text-amica-light mb-4" width="48" height="48"></iconify-icon>
+                    <h3 class="text-xl font-semibold mb-2">Lokale Expertise</h3>
+                    <p>Speziell optimiert für den deutschsprachigen Raum, um Ihnen die relevantesten lokalen Ergebnisse zu liefern.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Warum Amica? -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold mb-6">Warum Amica wählen?</h2>
+            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4">Die beste Wahl für Deutschland</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <iconify-icon icon="mdi:check-circle" class="text-green-500 mr-2" width="24" height="24"></iconify-icon>
+                                Fokus auf deutsche und europäische Inhalte
+                            </li>
+                            <li class="flex items-center">
+                                <iconify-icon icon="mdi:check-circle" class="text-green-500 mr-2" width="24" height="24"></iconify-icon>
+                                Einhaltung strenger deutscher Datenschutzgesetze
+                            </li>
+                            <li class="flex items-center">
+                                <iconify-icon icon="mdi:check-circle" class="text-green-500 mr-2" width="24" height="24"></iconify-icon>
+                                Unterstützung der lokalen digitalen Wirtschaft
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-4">Innovativ und zukunftsorientiert</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <iconify-icon icon="mdi:check-circle" class="text-green-500 mr-2" width="24" height="24"></iconify-icon>
+                                Kontinuierliche Verbesserung unserer Algorithmen
+                            </li>
+                            <li class="flex items-center">
+                                <iconify-icon icon="mdi:check-circle" class="text-green-500 mr-2" width="24" height="24"></iconify-icon>
+                                Integration neuester KI-Technologien
+                            </li>
+                            <li class="flex items-center">
+                                <iconify-icon icon="mdi:check-circle" class="text-green-500 mr-2" width="24" height="24"></iconify-icon>
+                                Offenheit für Feedback und Nutzerwünsche
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call-to-Action -->
+        <section class="text-center">
+            <h2 class="text-3xl font-bold mb-6">Bereit, Amica auszuprobieren?</h2>
+            <p class="text-xl mb-8">Entdecken Sie die Zukunft der Websuche - sicher, schnell und präzise.</p>
+            <a href="index.html" class="bg-amica-light hover:bg-amica-dark text-white font-bold py-3 px-6 rounded-full transition duration-300">Jetzt mit Amica suchen</a>
+        </section>
+    </main>
+
+    <!-- Footer-Bereich -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-[#f2f2f2] dark:border-gray-700 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-start">
+                <div class="mb-6 mr-24">
+                    <img src="logo_gray.png" alt="Amica Logo" class="w-24 h-auto mb-4 dark:hidden">
+                    <img src="logo_white.png" alt="Amica Logo" class="w-24 h-auto mb-4 hidden dark:block">
+                    <div class="text-gray-600 dark:text-gray-400">
+                        <p>Kontakt:</p>
+                        <p>E-Mail: info@amica.de</p>
+                        <p>Telefon: +49 123 456789</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 flex-grow">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Über Amica</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Über uns</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Produkte</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Technologie</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Rechtliches</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Datenschutz</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Nutzungsbedingungen</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Impressum</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Hilfe</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">FAQ</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Kontakt</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sicherheit</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Einstellungen</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sprache: Deutsch</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Region: Deutschland</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Erweiterte Suche</a></li>
+                            <li>
+                                <button id="darkModeToggle" class="flex items-center text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                                    <iconify-icon icon="heroicons:moon" class="mr-2 dark:hidden"></iconify-icon>
+                                    <iconify-icon icon="heroicons:sun" class="mr-2 hidden dark:inline"></iconify-icon>
+                                    <span id="darkModeText">Dunkle Ansicht</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-500 dark:text-gray-400">
+                <p>© 2024 Amica - Die intelligente Suchmaschine</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP-Plugins registrieren
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animationen für die Technologie-Karten
+        const technologyCards = document.querySelectorAll('.technology-card');
+        if (technologyCards.length > 0) {
+            gsap.from(technologyCards, {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                stagger: 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: ".technology-section",
+                    start: "top 80%",
+                }
+            });
+        }
+
+        // Interaktive Elemente für "Warum Amica?"
+        const reasons = document.querySelectorAll('.why-amica li');
+        reasons.forEach(reason => {
+            reason.addEventListener('mouseenter', () => {
+                gsap.to(reason, { scale: 1.05, duration: 0.3 });
+            });
+            reason.addEventListener('mouseleave', () => {
+                gsap.to(reason, { scale: 1, duration: 0.3 });
+            });
+        });
+
+        // Animierter Hintergrund für den Hero-Bereich
+        const heroPattern = document.querySelector('.hero-pattern');
+        if (heroPattern) {
+            gsap.to(heroPattern, {
+                backgroundPosition: '100% 100%',
+                duration: 20,
+                repeat: -1,
+                ease: "none",
+                yoyo: true
+            });
+        }
+
+        // Togglen der Amica Apps Bar
+        const amicaAppsBar = document.getElementById('amicaAppsBar');
+        const toggleAmicaAppsBar = document.getElementById('toggleAmicaAppsBar');
+        if (toggleAmicaAppsBar) {
+            const toggleIcon = toggleAmicaAppsBar.querySelector('iconify-icon');
+            toggleAmicaAppsBar.addEventListener('click', function() {
+                amicaAppsBar.classList.toggle('w-64');
+                amicaAppsBar.classList.toggle('w-0');
+                
+                if (amicaAppsBar.classList.contains('w-64')) {
+                    toggleIcon.setAttribute('icon', 'heroicons:chevron-double-left');
+                    toggleAmicaAppsBar.classList.remove('left-0');
+                    toggleAmicaAppsBar.classList.add('left-64');
+                } else {
+                    toggleIcon.setAttribute('icon', 'heroicons:chevron-double-right');
+                    toggleAmicaAppsBar.classList.remove('left-64');
+                    toggleAmicaAppsBar.classList.add('left-0');
+                }
+            });
+        }
+
+        // Drag and Drop für Amica Apps
+        const amicaAppsList = document.getElementById('amicaAppsList');
+        if (amicaAppsList) {
+            new Sortable(amicaAppsList, {
+                animation: 150,
+                ghostClass: 'bg-gray-100'
+            });
+        }
+
+        // Login-Aufforderung anzeigen
+        const profileImage = document.getElementById('profileImage');
+        if (profileImage) {
+            profileImage.addEventListener('click', function() {
+                const loginPrompt = document.getElementById('loginPrompt');
+                if (loginPrompt) {
+                    loginPrompt.classList.toggle('hidden');
+                }
+            });
+        }
+
+        // App-Menü anzeigen
+        const appMenuButton = document.getElementById('appMenuButton');
+        if (appMenuButton) {
+            appMenuButton.addEventListener('click', function() {
+                const appMenu = document.getElementById('appMenu');
+                if (appMenu) {
+                    appMenu.classList.toggle('hidden');
+                }
+            });
+        }
+
+        // Dark Mode Toggle Funktionalität
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkModeText = document.getElementById('darkModeText');
+
+        function updateDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                darkModeText.textContent = 'Helle Ansicht';
+            } else {
+                darkModeText.textContent = 'Dunkle Ansicht';
+            }
+        }
+
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+                updateDarkMode();
+            });
+        }
+
+        // Überprüfen der gespeicherten Dark Mode-Einstellung
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Initiale Aktualisierung des Dark Mode-Textes
+        updateDarkMode();
+    </script>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="de" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@16.0.2"></script>
+    <script>
+        const { Client } = Appwrite;
+        const client = new Client();
+        client.setProject('amica');
+    </script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    // Hier können Sie benutzerdefinierte Farben hinzufügen
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .search-container {
+            position: relative;
+        }
+        
+        .search-box {
+            height: 55px;
+            padding-left: 12px;
+            padding-right: 100px;
+        }
+        
+        .search-button {
+            position: absolute;
+            right: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 49px;
+            padding: 0 20px;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 24px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-button:hover {
+            background-color: #3367d6;
+        }
+
+        .dark iconify-icon {
+            color: #fff;
+        }
+
+        .amica-app {
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .amica-app:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+        .dark .amica-app {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .dark .amica-app:hover {
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <!-- Header mit Benutzermenü -->
+    <header class="bg-transparent border-b border-[#f2f2f2] dark:border-gray-700">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <img src="amica_logo-iconographyc1-1ratio.png" alt="Amica Logo" class="w-10 h-10">
+            <div class="flex items-center">
+                <button id="appMenuButton" class="mr-4 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <iconify-icon icon="heroicons:squares-2x2-16-solid"></iconify-icon>
+                </button>
+                <button id="profileImage" class="w-10 h-10 text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200">
+                    <iconify-icon icon="heroicons:user-circle-16-solid" width="40" height="40"></iconify-icon>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- App-Menü -->
+    <div id="appMenu" class="hidden absolute right-4 top-16 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg z-20 w-72 max-h-96 overflow-y-auto">
+        <h3 class="text-lg font-semibold mb-4 dark:text-white">Alle Apps</h3>
+        <div class="grid grid-cols-3 gap-4">
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-gmail" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Gmail</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-drive" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Drive</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-calendar" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Kalender</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-photos" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Fotos</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-maps" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Maps</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:youtube-icon" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">YouTube</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-keep" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Keep</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-meet" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Meet</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-docs" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Docs</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-sheets" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Sheets</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-slides" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Slides</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-forms" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Forms</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-cloud" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Cloud</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-analytics" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Analytics</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-ads" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Ads</span>
+            </a>
+            <a href="#" class="flex flex-col items-center text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                <iconify-icon icon="logos:google-play-icon" width="32" height="32"></iconify-icon>
+                <span class="mt-2 text-xs">Play Store</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Login-Aufforderung -->
+    <div id="loginPrompt" class="hidden absolute right-4 top-16 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg z-10">
+        <p class="text-gray-600 dark:text-gray-300 mb-4">Melden Sie sich an, um alle Funktionen zu nutzen!</p>
+        <div class="flex space-x-2">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Registrieren</button>
+            <button class="border border-blue-500 text-blue-500 px-4 py-2 rounded hover:bg-blue-50 dark:hover:bg-gray-700">Anmelden</button>
+        </div>
+    </div>
+
+    <!-- Hauptcontainer mit Seitenleiste und Suchmaschine -->
+    <div class="flex-grow flex">
+        <!-- Toggle-Button für Amica Apps Bar -->
+        <button id="toggleAmicaAppsBar" class="fixed left-0 top-1/2 transform -translate-y-1/2 bg-white dark:bg-gray-800 p-2 rounded-r-md shadow-md z-10">
+            <iconify-icon icon="heroicons:chevron-double-right" class="text-gray-600 dark:text-gray-400"></iconify-icon>
+        </button>
+
+        <!-- Seitenleiste für Amica Apps -->
+        <aside id="amicaAppsBar" class="w-0 bg-white dark:bg-gray-900 border-r border-[#f2f2f2] dark:border-gray-700 hidden md:block transition-all duration-300 overflow-hidden">
+            <div class="p-4">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold dark:text-white">Amica Apps</h2>
+                </div>
+                <div id="amicaAppsInfo" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 mb-6 relative">
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                        Amica Apps bieten schnellen Zugriff auf Ihre häufig genutzten Funktionen und Ressourcen. Passen Sie diese an, um Ihre Produktivität zu steigern.
+                    </p>
+                    <button id="editAmicaApps" class="flex items-center text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300">
+                        <iconify-icon icon="heroicons:pencil" class="mr-2"></iconify-icon>
+                        Anpassen
+                    </button>
+                    <button id="closeAmicaAppsInfo" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300">
+                        <iconify-icon icon="heroicons:x-mark"></iconify-icon>
+                    </button>
+                </div>
+                <ul id="amicaAppsList" class="space-y-2">
+                    <li><a href="#" class="amica-app flex items-center p-2 text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                        <iconify-icon icon="logos:google-gmail" class="mr-2"></iconify-icon>
+                        Gmail
+                    </a></li>
+                    <li><a href="#" class="amica-app flex items-center p-2 text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                        <iconify-icon icon="logos:google-drive" class="mr-2"></iconify-icon>
+                        Google Drive
+                    </a></li>
+                    <li><a href="#" class="amica-app flex items-center p-2 text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                        <iconify-icon icon="logos:slack-icon" class="mr-2"></iconify-icon>
+                        Slack
+                    </a></li>
+                    <li><a href="#" class="amica-app flex items-center p-2 text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                        <iconify-icon icon="logos:trello" class="mr-2"></iconify-icon>
+                        Trello
+                    </a></li>
+                    <li><a href="#" class="amica-app flex items-center p-2 text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                        <iconify-icon icon="logos:github-icon" class="mr-2"></iconify-icon>
+                        GitHub
+                    </a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Hauptinhalt mit Suchmaschine -->
+        <main class="flex-grow flex flex-col justify-center items-center px-4">
+            <div class="text-center">
+                <!-- Logo der Suchmaschine -->
+                <img src="logo_gradient.png" alt="Amica Logo" class="w-64 h-auto mb-8 mx-auto">
+                
+                <!-- Suchfeld und Button -->
+                <form action="search.html" method="get" class="search-container w-full max-w-4xl">
+                    <input type="text" name="q" class="search-box w-full border border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Fragen Sie etwas...">
+                    <button type="submit" class="search-button">Suchen</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer-Bereich -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-[#f2f2f2] dark:border-gray-700 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-start">
+                <img src="logo_gray.png" alt="Amica Logo" class="w-24 h-auto mr-24 mb-6 dark:hidden">
+                <img src="logo_white.png" alt="Amica Logo" class="w-24 h-auto mr-24 mb-6 hidden dark:block">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 flex-grow">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Über Amica</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Über uns</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Produkte</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Technologie</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Rechtliches</h3>
+                        <ul class="space-y-2">
+                            <li><a href="privacy.html" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Datenschutz</a></li>
+                            <li><a href="terms-of-use.html" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Nutzungsbedingungen</a></li>
+                            <li><a href="imprint.html" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Impressum</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Hilfe</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">FAQ</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Kontakt</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sicherheit</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Einstellungen</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sprache: Deutsch</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Region: Deutschland</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Erweiterte Suche</a></li>
+                            <li>
+                                <button id="darkModeToggle" class="flex items-center text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                                    <iconify-icon icon="heroicons:moon" class="mr-2 dark:hidden"></iconify-icon>
+                                    <iconify-icon icon="heroicons:sun" class="mr-2 hidden dark:inline"></iconify-icon>
+                                    <span id="darkModeText">Dunkle Ansicht</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-500 dark:text-gray-400">
+                <p>© 2024 Amica - Die intelligente Suchmaschine</p>
+            </div>
+        </div>
+    </footer>
+
+    <section class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Amica Funktionen</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <iconify-icon icon="mdi:magnify" class="text-4xl text-amica-light mb-4"></iconify-icon>
+                    <h3 class="text-xl font-semibold mb-2">Intelligente Suche</h3>
+                    <p>Unsere KI versteht Ihre Absicht und liefert präzise Ergebnisse.</p>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <iconify-icon icon="mdi:shield-check" class="text-4xl text-amica-light mb-4"></iconify-icon>
+                    <h3 class="text-xl font-semibold mb-2">Datenschutz</h3>
+                    <p>Ihre Privatsphäre steht an erster Stelle. Keine Tracking, keine Werbung.</p>
+                </div>
+                <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-md">
+                    <iconify-icon icon="mdi:rocket-launch" class="text-4xl text-amica-light mb-4"></iconify-icon>
+                    <h3 class="text-xl font-semibold mb-2">Blitzschnell</h3>
+                    <p>Erhalten Sie Ihre Ergebnisse in Sekundenbruchteilen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-8 text-center">Häufig gestellte Fragen</h2>
+            <div class="space-y-4">
+                <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
+                        <span class="text-lg font-semibold">Wie unterscheidet sich Amica von anderen Suchmaschinen?</span>
+                        <iconify-icon icon="mdi:chevron-down" class="text-2xl"></iconify-icon>
+                    </button>
+                    <p class="mt-2 hidden">Amica legt besonderen Wert auf Datenschutz und liefert präzise, auf den deutschsprachigen Raum zugeschnittene Ergebnisse.</p>
+                </div>
+                <div class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(this)">
+                        <span class="text-lg font-semibold">Ist Amica wirklich kostenlos?</span>
+                        <iconify-icon icon="mdi:chevron-down" class="text-2xl"></iconify-icon>
+                    </button>
+                    <p class="mt-2 hidden">Ja, Amica ist komplett kostenlos für alle Nutzer. Wir finanzieren uns durch ethische Partnerschaften, nicht durch Ihre Daten.</p>
+                </div>
+                <!-- Fügen Sie hier weitere FAQ-Einträge hinzu -->
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-white dark:bg-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Informationen für Nerds</h2>
+            <p class="mb-8 text-lg text-gray-600 dark:text-gray-400">Tauchen Sie tiefer in die Technologie hinter Amica ein.</p>
+            <div class="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-3xl mx-auto">
+                <iconify-icon icon="mdi:code-tags" class="text-6xl text-amica-light mb-4"></iconify-icon>
+                <h3 class="text-2xl font-semibold mb-4">Technische Dokumentation</h3>
+                <p class="mb-6 text-gray-600 dark:text-gray-400">Entdecken Sie die Details unserer Algorithmen, Architektur und APIs. Perfekt für Entwickler und Technik-Enthusiasten.</p>
+                <a href="documentation.html" class="inline-block bg-amica-light text-white px-6 py-3 rounded-full hover:bg-amica-dark transition duration-300 transform hover:scale-105">
+                    Zur Dokumentation
+                    <iconify-icon icon="mdi:arrow-right" class="ml-2 inline-block"></iconify-icon>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Togglen der Amica Apps Bar
+        const amicaAppsBar = document.getElementById('amicaAppsBar');
+        const toggleAmicaAppsBar = document.getElementById('toggleAmicaAppsBar');
+        const toggleIcon = toggleAmicaAppsBar.querySelector('iconify-icon');
+
+        toggleAmicaAppsBar.addEventListener('click', function() {
+            amicaAppsBar.classList.toggle('w-64');
+            amicaAppsBar.classList.toggle('w-0');
+            
+            if (amicaAppsBar.classList.contains('w-64')) {
+                toggleIcon.setAttribute('icon', 'heroicons:chevron-double-left');
+                toggleAmicaAppsBar.classList.remove('left-0');
+                toggleAmicaAppsBar.classList.add('left-64');
+            } else {
+                toggleIcon.setAttribute('icon', 'heroicons:chevron-double-right');
+                toggleAmicaAppsBar.classList.remove('left-64');
+                toggleAmicaAppsBar.classList.add('left-0');
+            }
+        });
+
+        // Drag and Drop für Amica Apps
+        new Sortable(document.getElementById('amicaAppsList'), {
+            animation: 150,
+            ghostClass: 'bg-gray-100'
+        });
+
+        // Login-Aufforderung anzeigen
+        document.getElementById('profileImage').addEventListener('click', function() {
+            const loginPrompt = document.getElementById('loginPrompt');
+            loginPrompt.classList.toggle('hidden');
+        });
+
+        // App-Menü anzeigen
+        document.getElementById('appMenuButton').addEventListener('click', function() {
+            const appMenu = document.getElementById('appMenu');
+            appMenu.classList.toggle('hidden');
+        });
+
+        // Event-Listener für den Such-Button
+        document.querySelector('.search-button').addEventListener('click', function() {
+            var query = document.querySelector('.search-box').value;
+            alert('Sie haben gesucht nach: ' + query);
+        });
+
+        // Event-Listener zum Ausblenden der Amica Apps Info-Box
+        document.getElementById('closeAmicaAppsInfo').addEventListener('click', function() {
+            document.getElementById('amicaAppsInfo').style.display = 'none';
+        });
+
+        // Event-Listener für den "Anpassen"-Button
+        document.getElementById('editAmicaApps').addEventListener('click', function() {
+            const appsList = document.getElementById('amicaAppsList');
+            const currentApps = Array.from(appsList.children).map(li => {
+                const icon = li.querySelector('iconify-icon').getAttribute('icon');
+                const name = li.textContent.trim();
+                return { icon, name };
+            });
+
+            const newAppsList = prompt('Geben Sie Ihre gewünschten Apps ein (Format: Icon,Name;Icon,Name;...)\nVerfügbare Icons: logos:google-gmail, logos:google-drive, logos:slack-icon, logos:trello, logos:github-icon', 
+                currentApps.map(app => `${app.icon},${app.name}`).join(';'));
+
+            if (newAppsList) {
+                appsList.innerHTML = '';
+                newAppsList.split(';').forEach(app => {
+                    const [icon, name] = app.split(',');
+                    appsList.innerHTML += `
+                        <li><a href="#" class="amica-app flex items-center p-2 text-gray-600 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400">
+                            <iconify-icon icon="${icon}" class="mr-2"></iconify-icon>
+                            ${name}
+                        </a></li>
+                    `;
+                });
+            }
+        });
+
+        // Darkmode Toggle
+        document.getElementById('darkModeToggle').addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            updateDarkModeText();
+        });
+
+        function updateDarkModeText() {
+            const darkModeText = document.getElementById('darkModeText');
+            if (document.documentElement.classList.contains('dark')) {
+                darkModeText.textContent = 'Helle Ansicht';
+            } else {
+                darkModeText.textContent = 'Dunkle Ansicht';
+            }
+        }
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Initial update of dark mode text
+        updateDarkModeText();
+
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('iconify-icon');
+            answer.classList.toggle('hidden');
+            icon.setAttribute('icon', answer.classList.contains('hidden') ? 'mdi:chevron-down' : 'mdi:chevron-up');
+        }
+    </script>
+</body>
+</html>

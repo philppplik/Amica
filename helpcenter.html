@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de" class="light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amica Hilfe-Center</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        amica: {
+                            light: '#4285f4',
+                            dark: '#3367d6',
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <!-- Header (wie in search.html) -->
+    <header class="bg-white dark:bg-gray-800 shadow-md">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="flex items-center">
+                <img src="amica_logo-iconographyc1-1ratio.png" alt="Amica Logo" class="w-8 h-8 mr-2">
+                <span class="text-xl font-semibold">Amica</span>
+            </a>
+            <form action="search.html" method="get" class="search-container flex-grow max-w-2xl mx-4">
+                <input type="text" name="q" id="searchInput" class="search-box w-full border border-gray-300 dark:border-gray-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Wie können wir Ihnen helfen?">
+                <button type="submit" class="search-button">Suchen</button>
+            </form>
+            <!-- Weitere Header-Elemente hier -->
+        </div>
+    </header>
+
+    <!-- Hauptinhalt -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-8">Amica Hilfe-Center</h1>
+        
+        <!-- Populäre Themen -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Populäre Themen</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Suchergebnisse verbessern</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Tipps für präzisere Suchanfragen</p>
+                </a>
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Datenschutzeinstellungen</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Verwalten Sie Ihre Privatsphäre</p>
+                </a>
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Amica-Konto erstellen</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Schritt-für-Schritt-Anleitung</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Amica Apps -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Amica Apps</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="#" class="text-center">
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-full mb-2 inline-block">
+                        <iconify-icon icon="mdi:magnify" width="32" height="32"></iconify-icon>
+                    </div>
+                    <span class="block">Amica Suche</span>
+                </a>
+                <a href="#" class="text-center">
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-full mb-2 inline-block">
+                        <iconify-icon icon="mdi:email" width="32" height="32"></iconify-icon>
+                    </div>
+                    <span class="block">Amica Mail</span>
+                </a>
+                <a href="#" class="text-center">
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-full mb-2 inline-block">
+                        <iconify-icon icon="mdi:map" width="32" height="32"></iconify-icon>
+                    </div>
+                    <span class="block">Amica Maps</span>
+                </a>
+                <a href="#" class="text-center">
+                    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-full mb-2 inline-block">
+                        <iconify-icon icon="mdi:cloud" width="32" height="32"></iconify-icon>
+                    </div>
+                    <span class="block">Amica Cloud</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Dokumentation und Ressourcen -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Dokumentation und Ressourcen</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">API-Dokumentation</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Technische Dokumentation für Entwickler</p>
+                </a>
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Entwickler-Ressourcen</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Tools und Bibliotheken für Amica-Integration</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Rechtliches und Richtlinien -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Rechtliches und Richtlinien</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Datenschutzerklärung</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Informationen zum Umgang mit Ihren Daten</p>
+                </a>
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Nutzungsbedingungen</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Regeln für die Nutzung von Amica-Diensten</p>
+                </a>
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Community-Richtlinien</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Verhaltensregeln für Amica-Nutzer</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Presse und Karriere -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Presse und Karriere</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Amica Presse</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Pressemitteilungen und Medienressourcen</p>
+                </a>
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Jobs und Karriere</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Offene Stellen und Karrieremöglichkeiten bei Amica</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Formulare und Kontakt -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Formulare und Kontakt</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Kontaktformular</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Direkter Kontakt zum Amica-Support</p>
+                </a>
+                <a href="#" class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-300">
+                    <h3 class="font-semibold mb-2">Feedback geben</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Teilen Sie uns Ihre Meinung mit</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- FAQ-Sektion -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">Häufig gestellte Fragen</h2>
+            <div class="space-y-4">
+                <details class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                    <summary class="font-semibold cursor-pointer">Wie kann ich meine Suchergebnisse filtern?</summary>
+                    <p class="mt-2">Um Ihre Suchergebnisse zu filtern, können Sie die erweiterten Suchoptionen verwenden. Klicken Sie auf "Erweiterte Suche" neben dem Suchfeld und wählen Sie die gewünschten Filter aus.</p>
+                </details>
+                <details class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                    <summary class="font-semibold cursor-pointer">Wie ändere ich meine Datenschutzeinstellungen?</summary>
+                    <p class="mt-2">Gehen Sie zu Ihren Kontoeinstellungen und wählen Sie den Reiter "Datenschutz". Hier können Sie verschiedene Optionen anpassen, um Ihre Privatsphäre zu schützen.</p>
+                </details>
+                <details class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
+                    <summary class="font-semibold cursor-pointer">Kann ich Amica als meine Standardsuchmaschine festlegen?</summary>
+                    <p class="mt-2">Ja, Sie können Amica als Standardsuchmaschine in Ihrem Browser einstellen. Die genauen Schritte variieren je nach Browser. In den meisten Fällen finden Sie die Option in den Browsereinstellungen unter "Suche".</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (aus about.html) -->
+    <footer class="bg-white dark:bg-gray-800 border-t border-[#f2f2f2] dark:border-gray-700 py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-between items-start">
+                <div class="mb-6 mr-24">
+                    <img src="logo_gray.png" alt="Amica Logo" class="w-24 h-auto mb-4 dark:hidden">
+                    <img src="logo_white.png" alt="Amica Logo" class="w-24 h-auto mb-4 hidden dark:block">
+                    <div class="text-gray-600 dark:text-gray-400">
+                        <p>Kontakt:</p>
+                        <p>E-Mail: info@amica.de</p>
+                        <p>Telefon: +49 123 456789</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 flex-grow">
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Über Amica</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Über uns</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Produkte</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Technologie</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Rechtliches</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Datenschutz</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Nutzungsbedingungen</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Impressum</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Hilfe</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">FAQ</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Kontakt</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sicherheit</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-800 dark:text-gray-200 mb-3">Einstellungen</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Sprache: Deutsch</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Region: Deutschland</a></li>
+                            <li><a href="#" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">Erweiterte Suche</a></li>
+                            <li>
+                                <button id="darkModeToggle" class="flex items-center text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
+                                    <iconify-icon icon="heroicons:moon" class="mr-2 dark:hidden"></iconify-icon>
+                                    <iconify-icon icon="heroicons:sun" class="mr-2 hidden dark:inline"></iconify-icon>
+                                    <span id="darkModeText">Dunkle Ansicht</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-gray-500 dark:text-gray-400">
+                <p>© 2024 Amica - Die intelligente Suchmaschine</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle Funktionalität
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const darkModeText = document.getElementById('darkModeText');
+
+        function updateDarkMode() {
+            if (document.documentElement.classList.contains('dark')) {
+                darkModeText.textContent = 'Helle Ansicht';
+            } else {
+                darkModeText.textContent = 'Dunkle Ansicht';
+            }
+        }
+
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', function() {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+                updateDarkMode();
+            });
+        }
+
+        // Überprüfen der gespeicherten Dark Mode-Einstellung
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
+        // Initiale Aktualisierung des Dark Mode-Textes
+        updateDarkMode();
+    </script>
+</body>
+</html>
